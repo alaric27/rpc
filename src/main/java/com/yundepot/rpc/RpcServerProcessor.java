@@ -39,16 +39,29 @@ public class RpcServerProcessor extends AsyncProcessor<RpcRequest> {
     }
 
     private Object handle(RpcRequest request) throws Throwable {
-        String className   = request.getClassName();
-        Object serviceBean = rpcServer.getHandlerMap().get(className);
+        String serviceName = request.getServiceName();
+        Object serviceBean = rpcServer.getService(serviceName);
 
-        Class<?>   serviceClass   = serviceBean.getClass();
-        String     methodName     = request.getMethodName();
-        Class<?>[] parameterTypes = request.getParameterTypes();
-        Object[]   parameters     = request.getParameters();
+        Class serviceClass = serviceBean.getClass();
+        String methodName = request.getMethodName();
+        Object[] methodArgs = request.getMethodArgs();
 
+        // todo 删除该逻辑，直接获取对应method然后调用
+        Class<?>[] parameterTypes = getParameterTypes(methodArgs);
         Method method = serviceClass.getMethod(methodName, parameterTypes);
         method.setAccessible(true);
-        return method.invoke(serviceBean, parameters);
+        return method.invoke(serviceBean, methodArgs);
+    }
+
+    private Class[] getParameterTypes(Object[] methodArgs) {
+        if (methodArgs == null || methodArgs.length == 0) {
+            return null;
+        }
+        Class[] classList = new Class[methodArgs.length];
+
+        for (int i = 0; i < methodArgs.length; i++) {
+            classList[i] = methodArgs[i].getClass();
+        }
+        return classList;
     }
 }
