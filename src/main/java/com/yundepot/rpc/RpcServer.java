@@ -2,6 +2,7 @@ package com.yundepot.rpc;
 
 
 import com.yundepot.adam.AdamServer;
+import com.yundepot.adam.processor.ProcessorManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class RpcServer extends AdamServer {
     @Override
     public void start() {
         RpcServerProcessor rpcServerProcessor = new RpcServerProcessor(this);
-        registerProcessor(rpcServerProcessor);
+        ProcessorManager.registerProcessor(rpcServerProcessor);
         super.start();
     }
 
