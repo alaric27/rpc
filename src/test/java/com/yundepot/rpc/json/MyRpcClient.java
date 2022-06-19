@@ -20,18 +20,16 @@ public class MyRpcClient {
         rpcClient.start();
         HelloService helloService = rpcClient.create(HelloService.class);
 
-/*
         System.out.println(helloService.sayHello("alaric"));
 
         Student student = new Student();
         student.setId(10);
         student.setName("alaric");
         System.out.println(helloService.learn(student));
-*/
 
-//        helloService.touch();
+        helloService.touch();
 
-        System.out.println(helloService.add(3, 5));
+//        System.out.println(helloService.add(3, 5));
 
     }
 }
