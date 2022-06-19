@@ -55,7 +55,6 @@ public class RpcServerProcessor extends AsyncProcessor<RpcRequest> {
         String methodName = request.getMethodName();
         Object[] methodArgs = request.getMethodArgs();
 
-        // todo 删除该逻辑，直接获取对应method然后调用
         Class<?>[] parameterTypes = getParameterTypes(methodArgs);
         Method method = serviceClass.getMethod(methodName, parameterTypes);
         method.setAccessible(true);
