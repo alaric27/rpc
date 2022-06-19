@@ -3,21 +3,13 @@ package com.yundepot.rpc;
 
 import com.yundepot.adam.AdamServer;
 import com.yundepot.adam.processor.ProcessorManager;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.yundepot.rpc.config.ServiceManager;
 
 /**
  * @author zhaiyanan
  * @date 2019/6/9 16:06
  */
 public class RpcServer extends AdamServer {
-
-    /**
-     * 存储接口和实现类的对应关系
-     */
-    private Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-
     public RpcServer(int port) {
         super(port);
     }
@@ -34,14 +26,12 @@ public class RpcServer extends AdamServer {
     }
 
 
-    public RpcServer addService(String interfaceName, Object serviceBean) {
-        if (!serviceMap.containsKey(interfaceName)) {
-            serviceMap.put(interfaceName, serviceBean);
-        }
+    public RpcServer addService(String serviceName, Object serviceBean) {
+        ServiceManager.addService(serviceName, serviceBean);
         return this;
     }
 
     public Object getService(String service) {
-        return serviceMap.get(service);
+        return ServiceManager.getService(service);
     }
 }

@@ -35,6 +35,7 @@ public class InvokerInvocationHandler implements InvocationHandler {
         if ("equals".equals(methodName) && parameterTypes.length == 1) {
             return invoker.equals(args[0]);
         }
+
         RpcResponse response = invoker.invoke(new RpcRequest(method, args));
         if (!response.checkSuccess()) {
             if (response.getResult() != null && response.getResult() instanceof Throwable) {

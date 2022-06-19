@@ -17,6 +17,11 @@ public class HelloServiceImpl implements HelloService {
     }
 
     @Override
+    public void touch() {
+        System.out.println("touch");
+    }
+
+    @Override
     public Integer add(Integer a, Integer b) {
         return a + b;
     }
