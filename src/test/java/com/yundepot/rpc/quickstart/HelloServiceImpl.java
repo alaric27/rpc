@@ -15,4 +15,9 @@ public class HelloServiceImpl implements HelloService {
         student.setScore("id:" + student.getId() + " name:" + student.getName() + " :100");
         return student;
     }
+
+    @Override
+    public Integer add(Integer a, Integer b) {
+        return a + b;
+    }
 }

@@ -19,6 +19,7 @@ public class MyRpcClient {
         student.setName("alaric");
         System.out.println(helloService.learn(student));
 
+        System.out.println(helloService.add(3, 5));
 
     }
 }

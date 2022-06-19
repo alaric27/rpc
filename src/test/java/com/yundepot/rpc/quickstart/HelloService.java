@@ -7,4 +7,6 @@ package com.yundepot.rpc.quickstart;
 public interface HelloService {
     String sayHello(String name);
     Student learn(Student student);
+
+    Integer add(Integer a, Integer b);
 }

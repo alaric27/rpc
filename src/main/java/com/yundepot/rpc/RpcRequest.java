@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 public class RpcRequest implements Serializable {
 
     /**
-     * 服务提供者的唯一标识。在java语言下用于定位调用哪个类
+     * 服务提供者的唯一标识。
      */
     private String serviceName;
 
