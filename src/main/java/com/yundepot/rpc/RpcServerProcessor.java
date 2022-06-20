@@ -35,10 +35,8 @@ public class RpcServerProcessor extends AsyncProcessor<RpcRequest> {
             response.setResult(t);
             errorFlag = "true";
         }
-        Map<String, String> header = new HashMap<>();
-        header.put(RpcHeadOption.RPC_SERVICE_NAME, request.getServiceName());
-        header.put(RpcHeadOption.RPC_METHOD_NAME, request.getMethodName());
-        header.put(RpcHeadOption.RPC_RESPONSE_ERROR, errorFlag);
+
+        Map<String, String> header = buildResponseHeader(request, errorFlag);
         asyncCtx.sendResponse(response, header);
     }
 
@@ -71,5 +69,16 @@ public class RpcServerProcessor extends AsyncProcessor<RpcRequest> {
             classList[i] = methodArgs[i].getClass();
         }
         return classList;
+    }
+
+    private Map<String, String> buildResponseHeader(RpcRequest request, String errorFlag) {
+        if (request.getServiceName() == null || request.getMethodName() == null) {
+            return null;
+        }
+        Map<String, String> header = new HashMap<>();
+        header.put(RpcHeadOption.RPC_SERVICE_NAME, request.getServiceName());
+        header.put(RpcHeadOption.RPC_METHOD_NAME, request.getMethodName());
+        header.put(RpcHeadOption.RPC_RESPONSE_ERROR, errorFlag);
+        return header;
     }
 }
